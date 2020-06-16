@@ -2,6 +2,7 @@
     <div class="movie-title"  #tooltip="matTooltip"
     matTooltip="{{movie.title}}"
     matTooltipPosition="above"
+    matTooltipClass="tooltip-movie"
      >{{movie.title}}</div>
     <div class="movie-year">({{movie.year}})</div>
     <img class="brochure-poster" alt="No image found" (error)="setDefaultImg()" [src]="movie.image" />
