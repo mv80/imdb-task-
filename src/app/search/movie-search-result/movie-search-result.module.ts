@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieSearchResultComponent } from './movie-search-result.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -8,6 +9,7 @@ import { MovieSearchResultComponent } from './movie-search-result.component';
   declarations: [MovieSearchResultComponent],
   imports: [
     CommonModule,
+    MatTooltipModule,
     
   ],
   exports :[MovieSearchResultComponent]

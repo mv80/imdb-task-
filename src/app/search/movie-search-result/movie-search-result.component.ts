@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Movie } from 'src/app/models/movie';
 
 
@@ -7,12 +7,15 @@ import { Movie } from 'src/app/models/movie';
   templateUrl: './movie-search-result.component.html',
   styleUrls: ['./movie-search-result.component.scss']
 })
-export class MovieSearchResultComponent implements OnInit {
+export class MovieSearchResultComponent  {
  @Input() movie :Movie;
   constructor() { }
 
-  ngOnInit() {
+  setDefaultImg(){
+    this.movie.image = "assets/images/no-poster-available.jpg";
   }
+  
+
   
 
 }

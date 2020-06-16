@@ -18,7 +18,7 @@ export class MoviesSearchComponent implements  OnDestroy {
 
   search(term: string){
     this.loading = true;
-    this.moviesService.search(term.trim())
+    this.moviesService.search(term)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(movies => {
       this.movies = movies;

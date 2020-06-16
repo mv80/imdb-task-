@@ -1,5 +1,4 @@
 <div class="movie-list-container">
-    <mat-spinner *ngIf="loading"></mat-spinner>
     <div *ngIf="movies.length > 0;else no_items_found" class="movie-list-warpper">
         <ng-container *ngFor="let movie of movies">
             <app-movie-search-result [movie]="movie"></app-movie-search-result>

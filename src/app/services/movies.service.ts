@@ -18,12 +18,9 @@ export class MoviesService {
   search(term: string): Observable<Movie[]> {
     const url = this.buildSearchUrl(term);
     return this.http.get(url)
-      .pipe(map((data: any) => {
-        return data.Search ? data.Search : []; } 
-      ))
-      .pipe(map((data: Movie[]) => data.map((movie: Movie) => {
-        return new Movie(movie)
-      })))
+      .pipe(map((data: any) => data.Search ? data.Search :[])) 
+      .pipe(map((data: Movie[]) => data.map((movie: Movie) => new Movie(movie) 
+      )))
 
   }
   getAutoCompleteResults(term: string): Observable<AutoCompleteResult[]> {
@@ -32,15 +29,13 @@ export class MoviesService {
       .pipe(map((data: any) => data.Search))
       .pipe(map((items: any[]) => {
         items = items ? items : [];
-        const length = items.length >= MAX_ITEMS_AUTOCOMPLETE ? MAX_ITEMS_AUTOCOMPLETE : items.length;
-        return items.slice(0, length);
+        return items.slice(0, MAX_ITEMS_AUTOCOMPLETE);
       }))
-      .pipe(map((data: any[]) => data.map((option: any) => {
-        return new AutoCompleteResult(option)
-      })))
+      .pipe(map((data: any[]) => data.map((option: any) => new AutoCompleteResult(option) )))
 
   }
   private buildSearchUrl(term: string) {
+    term = term.trim();
     return `${BASE_URL}?s=${term}&apikey=${API_KEY}&type=movie`;
 
   }

@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { debounceTime, filter, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, takeUntil, switchMap } from 'rxjs/operators';
 import { MoviesService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/models/movie';
 import { AutoCompleteResult } from 'src/app/models/autoCompleteResult';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 const MIN_LENGTH = 3;
 @Component({
@@ -12,16 +12,10 @@ const MIN_LENGTH = 3;
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
-  constructor( private formBuilder: FormBuilder, private moviesService: MoviesService ) { }
+export class SearchBarComponent implements OnInit {
+    constructor( private formBuilder: FormBuilder, private moviesService: MoviesService ) { }
   searchForm : FormGroup;
-  options: AutoCompleteResult[];
-  ngUnsubscribe = new Subject();
+  options$: Observable<AutoCompleteResult[]>;
   @Output() searchClicked : EventEmitter<string> = new EventEmitter<string>();
   @Output() autoCompleteEvent : EventEmitter<string> = new EventEmitter<string>();
   ngOnInit() {
@@ -29,21 +23,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       term: new FormControl('', Validators.required)
        
     })
-    this.searchForm.get("term").valueChanges
+    this.options$  =this.searchForm.get("term").valueChanges
     .pipe(debounceTime(300))
     .pipe(filter( value => value.length >= MIN_LENGTH))
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe( term => {
-      this.moviesService.getAutoCompleteResults(term)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe( options => {
-        this.options = options; 
-      })
-      
-    })
+    .pipe(switchMap((term) => this.moviesService.getAutoCompleteResults(term))
+    )
    
   }
- 
   
   onSubmit() {
     if(this.searchForm.value.term){

@@ -4,12 +4,12 @@ export class Movie {
     id: string;
     type: string;
     image: string;
-    constructor(src: any) {
-        this.id = src.imdbID;
-        this.title = src.Title;
-        this.type = src.type;
-        this.image = src.Poster;
-        this.year = src.Year;
+    constructor(movie) {
+        this.id = movie.imdbID;
+        this.title = movie.Title;
+        this.type = movie.type;
+        this.image = movie.Poster;
+        this.year = movie.Year;
 
     }
 }

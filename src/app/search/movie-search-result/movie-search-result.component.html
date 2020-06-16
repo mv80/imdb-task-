@@ -1,5 +1,8 @@
 <div class="movie-result-container">
-    <div class="movie-title">{{movie.title}}</div>
+    <div class="movie-title"  #tooltip="matTooltip"
+    matTooltip="{{movie.title}}"
+    matTooltipPosition="above"
+     >{{movie.title}}</div>
     <div class="movie-year">({{movie.year}})</div>
-    <img class="brochure-poster" alt="No image found" [src]="movie.image" />
+    <img class="brochure-poster" alt="No image found" (error)="setDefaultImg()" [src]="movie.image" />
 </div>

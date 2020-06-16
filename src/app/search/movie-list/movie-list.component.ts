@@ -9,7 +9,7 @@ import { Movie } from 'src/app/models/movie';
 })
 export class MovieListComponent implements OnInit {
   @Input() movies: Movie[];
-  @Input() loading: boolean;
+  
   constructor() { }
 
   ngOnInit() {
