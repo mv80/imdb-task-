@@ -1,0 +1,28 @@
+.movie-result-container {
+  width: 250px;
+  background-color: #546a7b;
+  border-radius: 5px;
+  border: 3px solid #9ea3b0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px;
+  .movie-title {
+    font-size: 20px;
+    font-weight: 200;
+    color: #fae1df;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
+  .movie-year {
+    font-weight: 200;
+    color: #fae1df;
+  }
+  img {
+    height: 150px;
+  }
+}

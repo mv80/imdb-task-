@@ -1,0 +1,25 @@
+<div class="search-form-container">
+    <form class="search-form" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="form-field-wrapper">
+            <div class="search-form-field-warpper">
+                <input matInput type="text" placeholder="Search..." [matAutocomplete]="auto" formControlName="term"
+                    id="term">
+                <mat-autocomplete (optionSelected)="onSubmit()" #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option.display">
+                        {{option.display}}
+                    </mat-option>
+                    <mat-option *ngIf="options?.length === 0" [value]="">
+                        No Results Found
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+
+        </div>
+        <div class="submit-warpper">
+            <button class="submit-btn" type="submit">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+            </button>
+        </div>
+
+    </form>
+</div>
